@@ -1,0 +1,47 @@
+server:
+  port: 20140
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  datasource:
+    url: "jdbc:mysql://localhost:3306/testdb?useSSL=false&autoReconnect=true"
+    username: root
+    password: root
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: admin
+    listener:
+      simple:
+        concurrency: 50
+        max-concurrency: 50
+        retry:
+          initial-interval: 5000
+  mail:
+    default-encoding: UTF-8
+    host: testserver
+    port: 25
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 10
+  client:
+    initialInstanceInfoReplicationIntervalSeconds: 15
+    instanceInfoReplicationIntervalSeconds: 20
+    fetchRegistry: true
+    registryFetchIntervalSeconds: 10
+    serviceUrl:
+      defaultZone: http://${eureka_host:localhost}:${eureka_port:8761}/eureka/
+logging:
+  path: ./logs
+  file: ${spring.application.name}

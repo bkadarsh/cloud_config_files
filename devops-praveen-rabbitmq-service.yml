@@ -1,0 +1,38 @@
+server:
+  port: 20160
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: "jdbc:mysql://localhost:3306/testdb?useSSL=false&autoReconnect=true"
+    username: root
+    password: root
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    username: admin
+    password: password
+    listener:
+      simple:
+        concurrency: 50
+        max-concurrency: 50
+        retry:
+          initial-interval: 5000
+management:
+  security:
+    enabled: false
+endpoints:
+  cors:
+    allowed-origins:
+    - '*'
+    allowed-methods:
+    - GET
+logging:
+  path: ./logs
+  file: ${spring.application.name}
